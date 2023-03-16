@@ -1,0 +1,25 @@
+# Вывести данный текст построчно, в каждой строке 40 символов
+
+def line_by_line_output(line, width=40):
+    whitespace = set(" \n\t\r")
+    length = len(line)
+    start = 0
+
+    while start < (length - width):
+        end = start + width + 1
+        temp = line[start:end]
+        try:
+            end = start + temp.index('\n')
+        except ValueError:
+            for i, ch in enumerate(reversed(temp)):
+                if ch in whitespace:
+                    end -= i
+                    break
+        yield line[start:end]
+        start = end + 1
+    yield line[start:]
+
+
+text = "Даже с высоты сто девяносто первого этажа видно, что улица внизу покрыта густой колышущейся толпой. Люди стоят, смотрят вверх. А звук бьющегося стекла доносится с того этажа, который под нами. Там разбивается окно и из него вылетает шкаф с документами, похожий на большой черный холодильник. Из других окон вылетают маленькие тумбочки на шесть ящиков, которые, по мере приближения к земле, все больше и больше напоминают черные капли дождя. Капли становятся все меньше и меньше. Они исчезают в колышущемся людском море."
+for line in line_by_line_output(text, 40):
+    print(line)
