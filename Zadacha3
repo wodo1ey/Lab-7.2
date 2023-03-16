@@ -1,0 +1,20 @@
+#Проверить, является ли введённый IP адрес IP адресом Гренландии.
+
+import ipaddress
+
+flag = False
+file_name = input("Введите путь к файлу с данными: ").strip()
+input_address = input("Введите IP адрес: ").strip()
+with open(file_name, 'r') as file:
+    file_line = file.readline()
+    while file_line:
+        start, stop = file_line.strip().split('-')
+        if int(ipaddress.ip_address(start))<= int(ipaddress.ip_address(input_address))<= int(ipaddress.ip_address(stop)):
+            flag = True
+            break
+        file_line = file.readline()
+
+if flag:
+    print("Данный адрес принадлежит Гренландии")
+else:
+    print("Данный адрес не принадлежит Гренландии")
